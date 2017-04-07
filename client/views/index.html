@@ -17,22 +17,22 @@
     <div class="container">
       <h1 class="page-header">Fish Flix <small>Aquatic Movie Database</small></h1>
       <div class="movie-columns-container row">
-        <div class="col-md-4">
-          <form ng-controller="InputController" class="row">
+        <div ng-controller="InputController" class="col-md-4">
+          <form class="row">
             <div class="form-group col-md-12">
-                <input type="text" class="form-control " placeholder="Title" ng-model="newMovie.title">
+                <input name="t" type="text" class="form-control " placeholder="Title" ng-model="movieSearchForm.title">
             </div>
             <div class="form-group col-md-8">
-                <input type="text" class="form-control" placeholder="Director" ng-model="newMovie.director">
+                <input type="text" class="form-control" placeholder="Director" ng-model="movieSearchForm.director">
             </div>
             <div class="form-group col-md-4">
-                <input type="number" class="form-control col-md-2" placeholder="Run Time" ng-model="newMovie.length">
+                <input type="number" class="form-control col-md-2" placeholder="Run Time" ng-model="movieSearchForm.length">
             </div>
             <div class="form-group col-md-12">
-                <textarea class="form-control col-md-12" placeholder="Description" ng-model="newMovie.description"></textarea>
+                <textarea class="form-control col-md-12" placeholder="Description" ng-model="movieSearchForm.description"></textarea>
             </div>
             <div class="form-group col-md-12">
-              <button type="button" class="btn btn-primary form-control" name="button" ng-click="movies.addMovieToArray(newMovie)">Add Movie</button>
+              <button type="button" class="btn btn-primary form-control" name="button" ng-click="movies.addMovieToArray(movieSearchForm)">Add Movie</button>
             </div>
 
           </form>
