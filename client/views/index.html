@@ -1,0 +1,57 @@
+<!DOCTYPE html >
+<html ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fish Flix Movie Database</title>
+
+    <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+
+    <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
+    <script type="text/javascript" src="scripts/client.min.js"></script>
+
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="page-header">Fish Flix <small>Aquatic Movie Database</small></h1>
+      <div class="movie-columns-container row">
+        <div class="col-md-4">
+          <form ng-controller="InputController" class="row">
+            <div class="form-group col-md-12">
+                <input type="text" class="form-control " placeholder="Title" ng-model="newMovie.title">
+            </div>
+            <div class="form-group col-md-8">
+                <input type="text" class="form-control" placeholder="Director" ng-model="newMovie.director">
+            </div>
+            <div class="form-group col-md-4">
+                <input type="number" class="form-control col-md-2" placeholder="Run Time" ng-model="newMovie.length">
+            </div>
+            <div class="form-group col-md-12">
+                <textarea class="form-control col-md-12" placeholder="Description" ng-model="newMovie.description"></textarea>
+            </div>
+            <div class="form-group col-md-12">
+              <button type="button" class="btn btn-primary form-control" name="button" ng-click="movies.addMovieToArray(newMovie)">Add Movie</button>
+            </div>
+
+          </form>
+        </div>
+        <div class="col-md-8 movie-column">
+          <div ng-controller="DisplayController" class="row">
+              <div class="movie-container col-xs-12 col-sm-6 col-md-4" ng-repeat="movie in movies.collection">
+                <div class="movie">
+                  <i class="glyphicon glyphicon-film"></i>
+                  <h4>{{movie.title}}</h4>
+                  <h5>{{movie.director}}</h5>
+                  <p class="description">{{movie.description}}</p>
+                  <p class="run-time">{{movie.length}} min</p>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>
