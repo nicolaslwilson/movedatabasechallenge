@@ -58,21 +58,33 @@ var myApp = angular.module('myApp', []);
 myApp.controller('InputController', ['$scope', 'TheaterService', function ($scope, TheaterService) {
   $scope.movies = TheaterService;
   $scope.movieSearchForm = {
-    title: 'Hi',
+    title: '',
     description: '',
     director: '',
     length: ''
   };
-  console.log($scope);
-  TheaterService.searchOMDB($scope.movieSearchForm);
+
+  $scope.movieSearchFormSubmit = function() {
+    var formData = angular.copy($scope.movieSearchForm);
+    TheaterService.searchOMDB(formData);
+  };
 }]);
 
 myApp.controller('DisplayController', ['$scope', 'TheaterService', function ($scope, TheaterService) {
-  console.log(TheaterService);
   $scope.movies = TheaterService;
 }]);
 
 myApp.factory('TheaterService', ['$http', '$httpParamSerializer', function ($http, $httpParamSerializer) {
+  //private
+  var formDataToSearchParams = function (formData) {
+    var searchParams = {};
+    searchParams.t = formData.title || '';
+    searchParams.y = formData.year || '';
+    searchParams.plot = 'full';
+    searchParams.r = 'json';
+
+    return searchParams;
+  };
 
   //public
   var exports = {};
@@ -87,8 +99,8 @@ myApp.factory('TheaterService', ['$http', '$httpParamSerializer', function ($htt
   };
 
   exports.searchOMDB = function (formData) {
-    var searchParams = {};
-    searchParams.t = formData.title;
+    var searchParams = formDataToSearchParams(formData);
+    console.log(searchParams);
     var config = {
       method: 'GET',
       url: 'http://www.omdbapi.com/?',
