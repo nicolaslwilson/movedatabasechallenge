@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var db = require('./modules/db.js');
 
 //ROUTE MODULES
+var movies = require('./routes/moviedatabase.js');
 var index = require('./routes/index.js');
 
 //APP CONFIG
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('server/public'));
 
 //ROUTES
+app.use('/movies', movies);
 app.use('/', index);
 
 //LISTEN

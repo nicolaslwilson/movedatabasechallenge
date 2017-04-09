@@ -14,6 +14,12 @@ module.exports = function(grunt){
         src: ['index.html'],
         dest: 'server/public/views/'
       },
+    js: {
+        expand: true,
+        cwd: 'client/scripts',
+        src: ['client.js'],
+        dest: 'server/public/scripts/'
+      },
       css: {
         expand: true,
         cwd: 'client/styles',
