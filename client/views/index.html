@@ -1,6 +1,7 @@
 <!DOCTYPE html >
 <html ng-app="myApp">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,44 +11,65 @@
     <link rel="stylesheet" href="styles/style.css" />
 
     <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
-    <script type="text/javascript" src="scripts/client.min.js"></script>
+    <script type="text/javascript" src="scripts/client.js"></script>
 
-  </head>
-  <body>
+</head>
+
+<body>
     <div class="container">
-      <h1 class="page-header">Fish Flix <small>Aquatic Movie Database</small></h1>
-      <div class="movie-columns-container row">
-        <div ng-controller="InputController" class="col-md-4">
-          <form class="row" ng-submit="movieSearchFormSubmit($event)">
-            <div class="form-group col-md-9">
-                <input name="t" type="text" class="form-control " placeholder="Title" ng-model="movieSearchForm.title">
-            </div>
-            <div class="form-group col-md-3">
-                <input type="number" class="form-control" placeholder="Year" ng-model="movieSearchForm.year">
-            </div>
-            <div class="form-group col-md-6">
-              <input type="submit" class="btn btn-primary form-control" name="submit" value="Search" />
-            </div>
-            <div class="form-group col-md-6">
-              <input type="reset" class="btn btn-default form-control" name="reset" value="Reset" />
-            </div>
-          </form>
-        </div>
-        <div class="col-md-8 movie-column">
-          <div ng-controller="DisplayController" class="row">
-              <div class="movie-container col-xs-12 col-sm-6 col-md-4" ng-repeat="movie in movies.collection">
-                <div class="movie">
-                  <i class="glyphicon glyphicon-film"></i>
-                  <h4>{{movie.title}}</h4>
-                  <h5>{{movie.director}}</h5>
-                  <p class="description">{{movie.description}}</p>
-                  <p class="run-time">{{movie.length}} min</p>
+        <h1 class="page-header">Fish Flix <small>Aquatic Movie Database</small></h1>
+        <div class="movie-columns-container row">
+            <div class="col-md-4 search-column">
+                <form class="row" ng-submit="movieSearchFormSubmit($event)" ng-controller="InputController">
+                    <div class="form-group col-md-9">
+                        <input name="t" type="text" class="form-control " placeholder="Title" ng-model="movieSearchForm.title">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input type="number" class="form-control" placeholder="Year" ng-model="movieSearchForm.year">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="submit" class="btn btn-primary form-control" name="submit" value="Search" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="reset" class="btn btn-default form-control" name="reset" value="Reset" />
+                    </div>
+                </form>
+
+                <div ng-controller="SearchResultController" class="search-result-container row">
+                    <div class="col-md-12 movie-container">
+                        <div ng-show="movieSearchResult.Response == 'True'" class="movie">
+                            <i ng-click="addToCollection(movieSearchResult)" class="favorite-icon glyphicon glyphicon-star-empty"></i>
+                            <img src="{{movieSearchResult.Poster}}" alt="">
+                            <h4>{{movieSearchResult.Title}}</h4>
+                            <h5>{{movieSearchResult.Director}}</h5>
+                            <p class="description">{{movieSearchResult.Plot}}</p>
+                            <p class="run-time">{{movieSearchResult.Runtime}}</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-          </div>
+            </div>
+            <div class="col-md-8 collection-column">
+                <div ng-controller="DisplayController" class="row">
+                    <div class="movie-container col-md-12" ng-repeat="movie in movies.collection">
+                        <div class="movie row">
+                            <div class="poster-container col-md-4">
+                                <img src="{{movie.Poster}}" alt="{{movie.Title + Poster}}" class="placeholdericon">
+                                <!-- <i class="placeholdericon glyphicon glyphicon-film"></i> -->
+                            </div>
+                            <div class="description-container col-md-8">
+                                <h4>{{movie.Title}}</h4>
+                                <h5>{{movie.Director}}</h5>
+                                <p class="description">{{movie.Plot}}</p>
+                                <p class="run-time">{{movie.Runtime}}</p>
+                                <button type="button" ng-click="movies.deleteFromCollection(movie._id)">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
-  </body>
+</body>
+
 </html>
