@@ -35,7 +35,7 @@ myApp.factory('TheaterService', ['$http', '$httpParamSerializer', function ($htt
   var collection = [];
 
   var searchForm = {
-    title: 'Avatar',
+    title: '',
     year: '',
   };
 
@@ -46,6 +46,18 @@ myApp.factory('TheaterService', ['$http', '$httpParamSerializer', function ($htt
       console.log(response.data);
       exports.collection = response.data;
     });
+  };
+
+  var resetSearchForm = function () {
+    clearSearchTerms();
+    searchResult.Error = "";
+    searchResult.Response = "";
+
+  };
+
+  var clearSearchTerms = function () {
+    searchForm.title = '';
+    searchForm.year = '';
   };
 
 
@@ -61,8 +73,11 @@ myApp.factory('TheaterService', ['$http', '$httpParamSerializer', function ($htt
 
   exports.searchResult = searchResult;
 
+  exports.resetSearchForm = resetSearchForm;
+
   exports.addToCollection = function (movie) {
     $http.post('/movies/collection/add', movie).then(function(response) {
+      resetSearchForm();
       getCollectionFromDatabase();
     });
   };
@@ -82,9 +97,10 @@ myApp.factory('TheaterService', ['$http', '$httpParamSerializer', function ($htt
       paramSerializer: $httpParamSerializer
     };
     $http(config).then(function(response){
-      console.log(searchResult, exports.searchResult);
+      if (response.data.Response === 'True') {
+        resetSearchForm();
+      }
       Object.assign(searchResult, response.data);
-      console.log(searchResult, exports.searchResult);
     });
   };
 
