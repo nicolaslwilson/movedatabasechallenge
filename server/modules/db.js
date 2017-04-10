@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var mongoURI = 'mongodb://localhost:27017/moviedatabase';
+var mongoURI = 'mongodb://who:password@ds031651.mlab.com:31651/nicsdb';
 var MongoDB = mongoose.connect(mongoURI).connection;
 
 MongoDB.on('error', function(err){
