@@ -56,4 +56,5 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('default', ['uglify', 'copy', 'watch']);
+  grunt.registerTask('heroku', ['uglify', 'copy']);
 };
